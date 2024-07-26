@@ -37,6 +37,6 @@ const createPhotoObjectArray = () => {
   return arrayResultFinish;
 };
 
-console.log(createPhotoObjectArray());
+
 export {createPhotoObjectArray};
 // export {arrayResultFinish};
