@@ -20,6 +20,7 @@ const getCommentObjectArray = (qtt) => {
   return arrayResult;
 };
 
+
 const createPhotoObjectArray = () => {
   const arrayResultFinish = [];
   for (let i = 0; i < 25; i++) {
