@@ -23,4 +23,4 @@ const fillsTemplate = (array) => {
 fillsTemplate(photoObjectArray);
 
 
-// export {pictureContainer, photoObjectArray};
+export {pictureContainer, photoObjectArray};
