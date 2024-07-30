@@ -1,6 +1,10 @@
-import {pictureContainer, photoObjectArray} from './photos25';
+import {pictureContainer, photoObjectArray} from './photos25.js';
 
 import {isEscapeKey} from './util.js';
+const maxComment = 5;//кол-во комментов при открытии окна
+let lowRange = 0;
+let highRange = maxComment;
+let commentsCount = 0;
 let comments = [];
 
 const bigPictureSection = document.querySelector('.big-picture');//большое окно, которое мы будем заполнять данными
@@ -28,9 +32,10 @@ const onEscKeydown = (evt) => {
   }
 };
 // //функция генератор комментариев
-const renderсomments = () => {
+const renderFivecomments = () => {
+  const fiveComment = comments.slice(lowRange, highRange); //создаем копию части массива комментов
   const socialCommentsFragment = document.createDocumentFragment();//создаем фрагмент - ящик для комментариев
-  comments.forEach((comment) => { //проходимся по комментариям через .forEach
+  fiveComment.forEach((comment) => { //проходимся по комментариям через .forEach
     const userCommentElement = socialComment.cloneNode(true); //записываем в новую переменную клон блока комментов,
     userCommentElement.querySelector('.social__picture').src = comment.avatar; //добавляем аватар комментатора
     userCommentElement.querySelector('.social__picture').alt = comment.name; // добавляем имя комментатора
@@ -40,25 +45,39 @@ const renderсomments = () => {
   socialComments.append(socialCommentsFragment); // дабавляем фрагмент в блок комментов
 };
 
+const increaseCount = () => {
+  lowRange += maxComment;
+  highRange += maxComment;
+  highRange = (commentsCount < highRange) ? commentsCount : highRange;
+  socialcommentsShownCount.textContent = highRange;
+  if(commentsCount <= highRange) {
+    newCommentsLoader.classList.add('hidden');
+  }
+  renderFivecomments();
+};
+
+
 //функция, которая заполняет большое фото
 const openBigPicture = (pictureId) => {
   const currentPhoto = photoObjectArray.find((photo) => photo.id === Number(pictureId)); //находим объект = id;
   //дальше, заполняем адрес, лайки, комменты и пр.
   bigPictureImg.src = currentPhoto.url;
   likesCount.textContent = currentPhoto.likes;
-  socialcommentsShownCount.textContent = currentPhoto.comments.length;
-  socialCommentTotalCount.textContent = currentPhoto.comments.length;
-  // socialComments
+  comments = currentPhoto.comments;
+  commentsCount = comments.length;
+  socialcommentsShownCount.textContent = (commentsCount < 5) ? commentsCount : 5;// подставляем количество показанных комментов
+  socialCommentTotalCount.textContent = commentsCount;
   socialCaption.textContent = currentPhoto.description;
   socialComments.innerHTML = '';
-  comments = currentPhoto.comments;
-  renderсomments();
+  if(commentsCount <= highRange) {
+    newCommentsLoader.classList.add('hidden');
+  }
+  renderFivecomments();
   bigPictureSection.classList.remove('hidden');
   userModalCanselElement.addEventListener('click', onBigPictureCancelClick);
   document.addEventListener('keydown', onEscKeydown);// добавляем обработчик событий для закрытия фото по нажатию esc
-  socialCommentCount.classList.add('hidden');
-  newCommentsLoader.classList.add('hidden');
   document.body.classList.add('modal-open');
+  newCommentsLoader.addEventListener('click', increaseCount); // функция, которая будет отображать 5 комментов из общего числа)
 };
 
 // основная функция, которая ловит фото на контейнере где все фото вешаем обработчик с target
@@ -75,13 +94,17 @@ const openPicture = () => {
   });
 };
 
-
 // //функция закрытия большого фото
 function closePhoto() {
   bigPictureSection.classList.add('hidden'); //добавляем класс, который скрывает окно
   userModalCanselElement.removeEventListener('click', onBigPictureCancelClick);
   document.removeEventListener('keydown', onEscKeydown);
+  newCommentsLoader.removeEventListener('click', renderFivecomments);
+  newCommentsLoader.removeEventListener('click', increaseCount);
+  lowRange = 0;
+  commentsCount = 0;
+  highRange = maxComment;
+  newCommentsLoader.classList.remove('hidden');
 }
-
 
 export { openPicture };
