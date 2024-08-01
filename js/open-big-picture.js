@@ -15,7 +15,7 @@ const socialcommentsShownCount = socialCommentCount.querySelector('.social__comm
 const socialCommentTotalCount = socialCommentCount.querySelector('.social__comment-total-count'); //Общее количество комментариев к фотографии
 const socialComments = bigPictureSection.querySelector('.social__comments'); //блок для комментариев
 const socialComment = bigPictureSection.querySelector('.social__comment');//сам коммент
-const socialCaption = bigPictureSection.querySelector('.social__caption'); //блок с опис
+const socialCaption = bigPictureSection.querySelector('.social__caption'); //блок с описанием
 const newCommentsLoader = bigPictureSection.querySelector('.comments-loader');//кнопка загрузки новых комментариев
 const userModalCanselElement = bigPictureSection.querySelector('.big-picture__cancel'); //кнопка закрытия полноэкранного просмотра
 
@@ -31,7 +31,7 @@ const onEscKeydown = (evt) => {
     closePhoto();
   }
 };
-// //функция генератор комментариев
+//функция генератор комментариев
 const renderFivecomments = () => {
   const fiveComment = comments.slice(lowRange, highRange); //создаем копию части массива комментов
   const socialCommentsFragment = document.createDocumentFragment();//создаем фрагмент - ящик для комментариев
@@ -65,7 +65,7 @@ const openBigPicture = (pictureId) => {
   likesCount.textContent = currentPhoto.likes;
   comments = currentPhoto.comments;
   commentsCount = comments.length;
-  socialcommentsShownCount.textContent = (commentsCount < 5) ? commentsCount : 5;// подставляем количество показанных комментов
+  socialcommentsShownCount.textContent = (commentsCount < maxComment) ? commentsCount : maxComment;// подставляем количество показанных комментов
   socialCommentTotalCount.textContent = commentsCount;
   socialCaption.textContent = currentPhoto.description;
   socialComments.innerHTML = '';
