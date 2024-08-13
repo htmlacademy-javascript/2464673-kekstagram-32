@@ -1,4 +1,4 @@
-import { picturePreview} from './scale-editor';
+import { picturePreview } from './scale-editor';
 
 const effectControlList = document.querySelector('.effects__list');//список эффектов
 const effectControlContainer = document.querySelector('.img-upload__effect-level');//контейнер со слайдером
