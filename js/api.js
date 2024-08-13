@@ -26,7 +26,6 @@ const load = (route, errorText, method = Method.GET, body = null) => //м кот
       return response.json();
     })
     .catch(() => {
-      // showErrorMessageUpload(errorText);
       showErrorMessage(errorText);
       throw new Error(errorText);
     });
