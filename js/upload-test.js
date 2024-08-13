@@ -94,9 +94,11 @@ imageUploadForm.addEventListener('submit', (evt) => {
       .then(() => {
         fileUploadFormClose();
         showSuccesMessage();
+        // throw new Error();
       })
       .catch(() => {
         showErrorMessageUpload();
+        // throw new Error('ОШИБКА!!!');
       })
       .finally(unblockSubmitBtn);
   }

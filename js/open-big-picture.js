@@ -21,14 +21,14 @@ const userModalCanselElement = bigPictureSection.querySelector('.big-picture__ca
 
 //функция которя закрывает окно
 const onBigPictureCancelClick = () => {
-  closePhoto();
+  closePicture();
 };
 
 //если мы нажали escape только в это случае делаем closePhoto
 //будет использована в обработчике
 const onEscKeydown = (evt) => {
   if(isEscapeKey(evt)) {
-    closePhoto();
+    closePicture();
   }
 };
 //функция генератор комментариев
@@ -95,7 +95,7 @@ const openPicture = () => {
 };
 
 // //функция закрытия большого фото
-function closePhoto() {
+function closePicture() {
   bigPictureSection.classList.add('hidden'); //добавляем класс, который скрывает окно
   userModalCanselElement.removeEventListener('click', onBigPictureCancelClick);
   document.removeEventListener('keydown', onEscKeydown);

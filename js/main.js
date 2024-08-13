@@ -6,6 +6,6 @@ import './upload.js';
 import './valid-hashtag.js';
 import './scale-editor.js';
 import './effects-slider.js';
-// import './api.js';
+import './api.js';
 
 openPicture();
