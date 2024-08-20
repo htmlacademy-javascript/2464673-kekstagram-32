@@ -8,6 +8,7 @@ import './scale-editor.js';
 import './effects-slider.js';
 import './api.js';
 import './filter.js';
+import './select-photo.js';
 
 
 openPicture();
